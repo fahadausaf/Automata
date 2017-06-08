@@ -1,27 +1,4 @@
-// DFAs and NFAs based on Scala's partial functions
-import scala.util.Try
 
-
-// type abbreviation for partial functions
-type :=>[A, B] = PartialFunction[A, B]
-
-// class for DFAs
-case class DFA[A, C](start: A,                // starting state
-                     delta: (A, C) :=> A,     // transition
-                     fins:  A => Boolean) {   // final states
-
-  // given a state and a "string", what is the next
-  // state, if there is any?
-  def deltas(q: A, s: List[C]) : A = s match {
-    case Nil => q
-    case c::cs => deltas(delta(q, c), cs)
-  }
-
-  // is a "string" accepted by an DFA?
-  def accepts(s: List[C]) : Boolean =
-    Try(fins(deltas(start, s))) getOrElse false
-
-}
 
 // some states for test cases
 abstract class State
@@ -31,7 +8,7 @@ case object Q2 extends State
 case object Q3 extends State
 case object Q4 extends State
 
-val delta : (State, Char) :=> State ={
+def delta(s: State, c: Char) : State = (s, c) match{
   case (Q0, 'a') => Q1
   case (Q0, 'b') => Q2
   case (Q1, 'a') => Q4
@@ -44,7 +21,15 @@ val delta : (State, Char) :=> State ={
   case (Q4, 'b') => Q4
 }
 
-val dfa = DFA(Q0, delta, Set[State](Q4))
+def deltas(startState: State, input: List[Char]): State = (startState, input) match{
+  case (s, c :: Nil) => delta(s, c)
+  case (s, c :: cs) => deltas(delta(s, c), cs)
+}
 
-dfa.accepts("bbabaab".toList)
-dfa.accepts("baba".toList)
+def accepts(s: List[Char]): Boolean = {
+  deltas(Q0, s) == Q4
+}
+
+accepts("bbabaab".toList)
+accepts("baba".toList)
+

@@ -1,50 +1,50 @@
-// DFAs and NFAs based on Scala's partial functions
-import scala.util.Try
-
-
-// type abbreviation for partial functions
-type :=>[A, B] = PartialFunction[A, B]
-
-// class for DFAs
-case class DFA[A, C](start: A,                // starting state
-                     delta: (A, C) :=> A,     // transition
-                     fins:  A => Boolean) {   // final states
-
-  // given a state and a "string", what is the next
-  // state, if there is any?
-  def deltas(q: A, s: List[C]) : A = s match {
-    case Nil => q
-    case c::cs => deltas(delta(q, c), cs)
-  }
-
-  // is a "string" accepted by an DFA?
-  def accepts(s: List[C]) : Boolean =
-    Try(fins(deltas(start, s))) getOrElse false
-
+def state(state: String, player: Char): String = (state, player) match {
+  case ("love", 's')    => "15-love"
+  case ("love", 'o')    => "love-15"
+  case ("15-love", 's') => "30-all"
+  case ("15-love", 'o') => "15-all"
+  case ("love-15", 's') => "15-all"
+  case ("love-15", 'o') => "love-30"
+  case ("15-all", 's')  => "30-15"
+  case ("15-all", 'o')  => "15-30"
+  case ("30-15", 's')   => "40-15"
+  case ("30-15", 'o')   => "30-all"
+  case ("15-30", 's')   => "30-all"
+  case ("15-30", 'o')   => "15-40"
+  case ("30-all", 's')  => "40-30"
+  case ("30-all", 'o')  => "30-40"
+  case ("40-30", 's')   => "s-wins"
+  case ("40-30", 'o')   => "deuce"
+  case ("30-40", 's')   => "deuce"
+  case ("30-40", 'o')   => "o-wins"
+  case ("deuce", 's')   => "ad-in"
+  case ("deuce", 'o')   => "ad-out"
+  case ("30-love", 's') => "40-love"
+  case ("30-love", 'o') => "30-15"
+  case ("love-30", 's') => "15-30"
+  case ("love-30", 'o') => "love-40"
+  case ("40-love", 's') => "s-wins"
+  case ("40-love", 'o') => "40-15"
+  case ("love-40", 's') => "15-40"
+  case ("love-40", 'o') => "o-wins"
+  case ("40-15", 's')   => "s-wins"
+  case ("40-15", 'o')   => "40-30"
+  case ("15-40", 's')   => "30-40"
+  case ("15-40", 'o')   => "o-wins"
+  case ("s-wins", 's')  => "s-wins"
+  case ("s-wins", 'o')  => "s-wins"
+  case ("o-wins", 's')  => "o-wins"
+  case ("o-wins", 'o')  => "o-wins"
+  case ("add-in", 's')  => "s-wins"
+  case ("add-in", 'o')  => "deuce"
+  case ("add-out", 's') => "deuce"
+  case ("add-out", 'o') => "o-wins"
+  case (_, _)           => "trap"
 }
 
-// some states for test cases
-abstract class State
-case object Q0 extends State
-case object Q1 extends State
-case object Q2 extends State
-case object Q3 extends State
-case object Q4 extends State
-
-val delta : (State, Char) :=> State ={
-  case (Q0, 'a') => Q1
-  case (Q0, 'b') => Q2
-  case (Q1, 'a') => Q4
-  case (Q1, 'b') => Q2
-  case (Q2, 'a') => Q3
-  case (Q2, 'b') => Q2
-  case (Q3, 'a') => Q4
-  case (Q3, 'b') => Q0
-  case (Q4, 'a') => Q4
-  case (Q4, 'b') => Q4
+def game(startState: String, moves: List[Char]): String = (startState, moves) match {
+  case (s, x :: Nil) => state(s, x)
+  case (s, x :: xs)  => game(state(s, x), xs)
 }
 
-val dfa = DFA(Q0, delta, Set[State](Q4))
-
-dfa.accepts("bbabaab".toList)
-dfa.accepts("baba".toList)
+println(game("love", "sossos".toList))
