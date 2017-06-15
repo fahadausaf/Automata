@@ -8,6 +8,17 @@ case object Q2 extends State
 case object Q3 extends State
 case object Q4 extends State
 
+case class DFA(startState: State, delta: (State, Char) => State, finalStates: Set[State]) {
+  def deltas(startState: State, input: List[Char]): State = (startState, input) match{
+    case (s, c :: Nil) => delta(s, c)
+    case (s, c :: cs) => deltas(delta(s, c), cs)
+  }
+
+  def accepts(s: List[Char]): Boolean = {
+    finalStates.contains(deltas(Q0, s))
+  }
+}
+
 def delta(s: State, c: Char) : State = (s, c) match{
   case (Q0, 'a') => Q1
   case (Q0, 'b') => Q2
@@ -21,15 +32,9 @@ def delta(s: State, c: Char) : State = (s, c) match{
   case (Q4, 'b') => Q4
 }
 
-def deltas(startState: State, input: List[Char]): State = (startState, input) match{
-  case (s, c :: Nil) => delta(s, c)
-  case (s, c :: cs) => deltas(delta(s, c), cs)
-}
+val dfa = DFA(Q0, delta, Set[State](Q4))
 
-def accepts(s: List[Char]): Boolean = {
-  deltas(Q0, s) == Q4
-}
-
-accepts("bbabaab".toList)
-accepts("baba".toList)
+dfa.accepts("bbabaab".toList)
+dfa.accepts("baba".toList)
+dfa.accepts("bbabaa".toList)
 
