@@ -15,7 +15,7 @@ case class DFA(startState: State, delta: (State, Char) => State, finalStates: Se
   }
 
   def accepts(s: List[Char]): Boolean = {
-    finalStates.contains(deltas(Q0, s))
+    finalStates.contains(deltas(startState, s))
   }
 }
 
