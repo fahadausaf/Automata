@@ -43,8 +43,7 @@ from |
 behind |
 above |
 below |
-between |
-below     { printf("%s: is a preposition\n", yytext); }
+between    { printf("%s: is a preposition\n", yytext); }
 
 if |
 then |
@@ -57,4 +56,21 @@ my |
 your |
 his |
 her |
-its       { printf("%s: is an adjective\n"); }
+its       { printf("%s: is an adjective\n", yytext); }
+
+I |
+you |
+he |
+she |
+we |
+they      { printf("%s: is a pronoun\n", yytext); }
+
+[a-zA-Z]+ { printf("%s: don't recognize, might be a noun\n", yytext); }
+
+.|\n      { ECHO; /* normal default anyway */}
+
+%%
+
+void main(void){
+  yylex();
+}
