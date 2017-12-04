@@ -1,10 +1,10 @@
 %token NAME NUMBER
 %%
 statement:  NAME '=' expression
-    |       expression          { printf("= %d\n", $1); }
+    |       expression        { printf("= %d\n", $1); }
     ;
 
-expression: expression '+' NUMBER { $$ = $1 + $3; }
-    |       expression '_' NUMBER { $$ = $1 - $3; }
-    |       NUMBER                { $$ = $1; }
-as
+expression: NUMBER '+' NUMBER   { $$ = $1 + $3; }
+    |       NUMBER '-' NUMBER   { $$ = $1 - $3; }
+    |       NUMBER              { $$ = $1; }
+    ;
