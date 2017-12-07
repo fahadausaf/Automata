@@ -19,7 +19,7 @@ expression: expression '+' expression   { $$ = $1 + $3; }
                   else
                         $$ = $1 / $3;
                 }
-    |       '-' expression      { $$ = $2; }
+    |       '-' expression      { $$ = -$2; }
     |       '(' expression ')'  { $$ = $2; }
     |       NUMBER              { $$ = $1; }
     ;
