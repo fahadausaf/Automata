@@ -62,10 +62,10 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "ch3-03.y" /* yacc.c:339  */
+#line 3 "ch3-04.y" /* yacc.c:339  */
 
-#include <stdio.h>
-double vbltable[26];
+#include "ch3hdr.h"
+#include <string.h>
 
 #line 71 "y.tab.c" /* yacc.c:339  */
 
@@ -117,10 +117,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 6 "ch3-03.y" /* yacc.c:355  */
+#line 8 "ch3-04.y" /* yacc.c:355  */
 
       double dval;
-      int vblno;
+      struct symtab *symp;
 
 #line 126 "y.tab.c" /* yacc.c:355  */
 };
@@ -437,8 +437,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    20,    20,    21,    24,    25,    28,    29,    30,    31,
-      38,    39,    40,    41
+       0,    22,    22,    23,    26,    27,    30,    31,    32,    33,
+      40,    41,    42,    43
 };
 #endif
 
@@ -1220,37 +1220,37 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 24 "ch3-03.y" /* yacc.c:1646  */
-    { vbltable[(yyvsp[-2].vblno)] = (yyvsp[0].dval); }
+#line 26 "ch3-04.y" /* yacc.c:1646  */
+    { (yyvsp[-2].symp)->value = (yyvsp[0].dval); }
 #line 1226 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 25 "ch3-03.y" /* yacc.c:1646  */
+#line 27 "ch3-04.y" /* yacc.c:1646  */
     { printf("= %g\n", (yyvsp[0].dval)); }
 #line 1232 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 28 "ch3-03.y" /* yacc.c:1646  */
+#line 30 "ch3-04.y" /* yacc.c:1646  */
     { (yyval.dval) = (yyvsp[-2].dval) + (yyvsp[0].dval); }
 #line 1238 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 29 "ch3-03.y" /* yacc.c:1646  */
+#line 31 "ch3-04.y" /* yacc.c:1646  */
     { (yyval.dval) = (yyvsp[-2].dval) - (yyvsp[0].dval); }
 #line 1244 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 30 "ch3-03.y" /* yacc.c:1646  */
+#line 32 "ch3-04.y" /* yacc.c:1646  */
     { (yyval.dval) = (yyvsp[-2].dval) * (yyvsp[0].dval); }
 #line 1250 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 32 "ch3-03.y" /* yacc.c:1646  */
+#line 34 "ch3-04.y" /* yacc.c:1646  */
     {
                   if((yyvsp[0].dval) == 0.0)
                         yyerror("divide by zero");
@@ -1261,20 +1261,20 @@ yyreduce:
     break;
 
   case 10:
-#line 38 "ch3-03.y" /* yacc.c:1646  */
+#line 40 "ch3-04.y" /* yacc.c:1646  */
     { (yyval.dval) = -(yyvsp[0].dval); }
 #line 1267 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 39 "ch3-03.y" /* yacc.c:1646  */
+#line 41 "ch3-04.y" /* yacc.c:1646  */
     { (yyval.dval) = (yyvsp[-1].dval); }
 #line 1273 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 41 "ch3-03.y" /* yacc.c:1646  */
-    { (yyval.dval) = vbltable[(yyvsp[0].vblno)]; }
+#line 43 "ch3-04.y" /* yacc.c:1646  */
+    { (yyval.dval) = (yyvsp[0].symp)->value; }
 #line 1279 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1507,5 +1507,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 43 "ch3-03.y" /* yacc.c:1906  */
+#line 45 "ch3-04.y" /* yacc.c:1906  */
 

@@ -1,17 +1,22 @@
+/* lexer with symbol table */
+
 %{
 #include "y.tab.h"
 #include <math.h>
-extern double vbltable[26];
+#include "ch3hdr.h"
 %}
 
 %%
 ([0-9]+|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) {
-  yylval.dval = atof(yytext); return NUMBER;
+  yylval.dval = atof(yytext);
+  return NUMBER;
   }
 
 [ \t] ;         /* ignore whitespace */
 
-[a-z] { yylval.vblno = yytext[0] - 'a'; return NAME; }
+[A-Za-z][A-Za-z0-9]* {
+  yylval.symp = symlook(yytext);
+}
 
 "$"   { return 0; /* end of input */}
 

@@ -60,10 +60,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 6 "ch3-03.y" /* yacc.c:1909  */
+#line 8 "ch3-04.y" /* yacc.c:1909  */
 
       double dval;
-      int vblno;
+      struct symtab *symp;
 
 #line 69 "y.tab.h" /* yacc.c:1909  */
 };
