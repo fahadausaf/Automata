@@ -3,7 +3,7 @@
 /* look up a symbol table, add if not present */
 struct symtab *
 symlook(s)
-char *s
+char *s;
 {
   char *p;
   struct symtab *sp;
