@@ -1,3 +1,5 @@
+/* Lexer for calculator with variables and real values */
+
 %{
 #include "y.tab.h"
 #include <math.h>
