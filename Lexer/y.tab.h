@@ -60,7 +60,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 9 "ch3-05.y" /* yacc.c:1909  */
+#line 9 "ch3-ex1.y" /* yacc.c:1909  */
 
       double dval;
       struct symtab *symp;
