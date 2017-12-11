@@ -469,14 +469,13 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "ch3-04.l"
+#line 1 "ch3-05.l"
 /* lexer with symbol table */
-#line 4 "ch3-04.l"
+#line 4 "ch3-05.l"
 #include "y.tab.h"
 #include <math.h>
-#include "ch3hdr.h"
-#include "ch3-04.pgm"
-#line 480 "lex.yy.c"
+#include "ch3hdr2.h"
+#line 479 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -694,9 +693,9 @@ YY_DECL
 		}
 
 	{
-#line 10 "ch3-04.l"
+#line 9 "ch3-05.l"
 
-#line 700 "lex.yy.c"
+#line 699 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -755,7 +754,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "ch3-04.l"
+#line 10 "ch3-05.l"
 {
   yylval.dval = atof(yytext);
   return NUMBER;
@@ -763,34 +762,35 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "ch3-04.l"
+#line 15 "ch3-05.l"
 ;         /* ignore whitespace */
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "ch3-04.l"
+#line 17 "ch3-05.l"
 {
-  yylval.symp = symlook(yytext);
+  struct symtab *sp = symlook(yytext);
+  yylval.symp = sp;
   return NAME;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "ch3-04.l"
+#line 23 "ch3-05.l"
 { return 0; /* end of input */}
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
-#line 26 "ch3-04.l"
+#line 26 "ch3-05.l"
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 26 "ch3-04.l"
+#line 26 "ch3-05.l"
 return yytext[0];
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "ch3-04.l"
+#line 27 "ch3-05.l"
 ECHO;
 	YY_BREAK
 #line 797 "lex.yy.c"
@@ -1794,7 +1794,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 27 "ch3-04.l"
+#line 27 "ch3-05.l"
 
 
 
