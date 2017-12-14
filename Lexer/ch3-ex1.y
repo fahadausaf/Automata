@@ -51,7 +51,7 @@ expression: expression '+' expression   { $$ = $1 + $3; }
             }
     |       NAME '(' expression ',' expression ')' {
                   if($1->funcptr)
-                        $$ = ($1->funcptr) ($3) ($5);
+                        $$ = ($1->funcptr) ($3,$5);
                   else {
                         printf("%s not a function\n", $1->name);
                         $$ = 0.0;

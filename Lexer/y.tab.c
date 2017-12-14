@@ -1302,7 +1302,7 @@ yyreduce:
 #line 52 "ch3-ex1.y" /* yacc.c:1646  */
     {
                   if((yyvsp[-5].symp)->funcptr)
-                        (yyval.dval) = ((yyvsp[-5].symp)->funcptr) ((yyvsp[-3].dval)) ((yyvsp[-1].dval));
+                        (yyval.dval) = ((yyvsp[-5].symp)->funcptr) ((yyvsp[-3].dval),(yyvsp[-1].dval));
                   else {
                         printf("%s not a function\n", (yyvsp[-5].symp)->name);
                         (yyval.dval) = 0.0;
