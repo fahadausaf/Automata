@@ -8,11 +8,13 @@
 
 %union {
       double dval;
+      char sval[20];
       struct symtab *symp;
 }
 
 %token <symp> NAME
 %token <dval> NUMBER
+%token <sval> STRING
 %left '-' '+'
 %left '*' '/'
 %nonassoc UMINUS
@@ -40,6 +42,7 @@ expression: expression '+' expression   { $$ = $1 + $3; }
     |       '-' expression %prec UMINUS { $$ = -$2; }
     |       '(' expression ')'          { $$ = $2; }
     |       NUMBER
+    |       STRING '"'
     |       NAME                        { $$ = $1->value; }
     |       NAME '(' expression ')' {
                   if($1->funcptr)
